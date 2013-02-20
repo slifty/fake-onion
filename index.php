@@ -16,7 +16,7 @@
 	session_start();
 
 	function get_image($item) {
-		//return "http://horsebreedsinfo.com/images/brown_horse.jpg";
+		return "http://horsebreedsinfo.com/images/brown_horse.jpg";
 		$client = new Google_Client();
 		$client->setApplicationName('Not The Onion');
 		// Visit https://code.google.com/apis/console?api=plus to generate your
