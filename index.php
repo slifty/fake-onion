@@ -8,6 +8,17 @@
 	$feed->init();
 	$feed->handle_content_type();
 
+	// Load the image cache
+	global $image_cache;
+	global $image_cache_location;
+	$image_cache_location = "cache/images.json";
+	if(!file_exists($image_cache_location)) {
+		$f = fopen($image_cache_location,'w');
+		fwrite($f, "{}");
+		fclose($f);
+	}
+	$image_cache = json_decode(file_get_contents($image_cache_location), true);
+
 	$items = array();
 	foreach ($feed->get_items() as $item) {
 		$items[] = $item;
@@ -16,25 +27,40 @@
 	session_start();
 
 	function get_image($item) {
-		return "http://horsebreedsinfo.com/images/brown_horse.jpg";
+		global $image_cache;
+		global $image_cache_location;
+		if(array_key_exists($item->get_title(), $image_cache))
+			return $image_cache[$item->get_title()];
+
+		$title = $item->get_title();
+		$image_url = "http://horsebreedsinfo.com/images/brown_horse.jpg";
+		
 		$client = new Google_Client();
 		$client->setApplicationName('Not The Onion');
-		// Visit https://code.google.com/apis/console?api=plus to generate your
-		// client id, client secret, and to register your redirect uri.
 		$client->setDeveloperKey('AIzaSyB8aIN6bkHdoAt-2JGb5HRavVKR2NNw-fg');
 
-		$search = new Google_CustomsearchService($client);
-		$results = $search->cse->listCse($item->get_title(), array(
-			'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
-			'searchType' => 'image'
-		));
+		try {
+			$search = new Google_CustomsearchService($client);
+			$results = $search->cse->listCse($title, array(
+				'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
+				'searchType' => 'image'
+			));
 
-		foreach($results["items"] as $result) {
-			$title = $result["title"];
-			return $result["link"];
+			$image_url = $results["items"][0]["link"];
+
+			$image_cache[$title] = $image_url;
+			$f = fopen($image_cache_location,'w');
+			fwrite($f, json_encode($image_cache));
+			fclose($f);
+
+			print_r($results);
+		} catch(Exception $e) {
 		}
+
+		return $image_url;
 	}
 
+	get_image($items[0]);
 	function get_tweet() {
 		$url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=justinbieber&count=1';
 		$tweets = json_decode(file_get_contents($url),TRUE);
