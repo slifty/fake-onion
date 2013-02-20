@@ -11,6 +11,8 @@
 	// Load the image cache
 	global $image_cache;
 	global $image_cache_location;
+	global $GOOGLE_API_OVERUSE;
+	$GOOGLE_API_OVERUSE = false;
 	$image_cache_location = "cache/images.json";
 	if(!file_exists($image_cache_location)) {
 		$f = fopen($image_cache_location,'w');
@@ -29,6 +31,8 @@
 	function get_image($item) {
 		global $image_cache;
 		global $image_cache_location;
+		global $GOOGLE_API_OVERUSE;
+
 		if(array_key_exists($item->get_title(), $image_cache))
 			return $image_cache[$item->get_title()];
 
@@ -40,21 +44,22 @@
 		$client->setDeveloperKey('AIzaSyB8aIN6bkHdoAt-2JGb5HRavVKR2NNw-fg');
 
 		try {
-			$search = new Google_CustomsearchService($client);
-			$results = $search->cse->listCse($title, array(
-				'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
-				'searchType' => 'image'
-			));
+			if(!$GOOGLE_API_OVERUSE) {
+				$search = new Google_CustomsearchService($client);
+				$results = $search->cse->listCse($title, array(
+					'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
+					'searchType' => 'image'
+				));
 
-			$image_url = $results["items"][0]["link"];
+				$image_url = $results["items"][0]["link"];
 
-			$image_cache[$title] = $image_url;
-			$f = fopen($image_cache_location,'w');
-			fwrite($f, json_encode($image_cache));
-			fclose($f);
-
-			print_r($results);
+				$image_cache[$title] = $image_url;
+				$f = fopen($image_cache_location,'w');
+				fwrite($f, json_encode($image_cache));
+				fclose($f);
+			}
 		} catch(Exception $e) {
+			$GOOGLE_API_OVERUSE = true;
 		}
 
 		return $image_url;
