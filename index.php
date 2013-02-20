@@ -60,7 +60,7 @@
 <!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="http://www.theonion.com/static/onion/css/redesign/ie.css" /><script type="text/javascript" src="http://www.theonion.com/static/onion/js/html5shiv.js"></script><script type="text/javascript" src="http://www.theonion.com/static/onion/js/html5shiv-printshiv.js"></script><script type="text/javascript" src="http://www.theonion.com/static/onion/js/respond.js"></script><![endif]-->
 <link rel="canonical" href="http://www.theonion.com">
 <link rel="alternate" type="application/rss+xml" title="The Onion: Daily News" href="http://feeds.theonion.com/theonion/daily">
-<link rel="icon" type="image/png" href="http://www.theonion.com/static/onion/img/favicon.ico">
+<link rel="icon" type="image/png" href="favicon.ico">
 </head>
 <body id="" class="site_onion ga_section afns-ad-skin" name="default" data-ct_section_name="blank" style="overflow: visible;">
 <section class="offpage" data-ct_section_name="offpage">
