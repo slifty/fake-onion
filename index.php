@@ -70,7 +70,7 @@
 	</div>
 	<div class="wrap">
 		<header class="site-header">
-		<h1><a href="http://www.theonion.com/" title="Home - The Onion" class="bgcontain" style="background:url('onion-full.gif');">
+		<h1><a href="http://www.theonion.com/" title="Home - The Onion" class="bgcontain" style="background:url('onion-full.png');">
 		<img src="onion-full.gif" alt="The On1on" title="The On1on" />
 		</a></h1>
 		<div id="meta-strip" class="inner-wrap">
