@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<!-- saved from url=(0024)http://jsbeautifier.org/ -->
+<html lang="en-us"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Online JavaScript beautifier</title>
+    <link rel="icon" href="http://jsbeautifier.org/favicon.png" type="image/png">
+    <script src="./Online JavaScript beautifier_files/ga.js"></script><script src="./Online JavaScript beautifier_files/codemirror.js"></script>
+    <script src="./Online JavaScript beautifier_files/javascript.js"></script>
+    <link rel="stylesheet" href="http://jsbeautifier.org/third-party/codemirror2/lib/codemirror.css">
+
+    <style>
+body {
+    background: #eee;
+    color: #333;
+}
+
+img {
+    border: 0;
+}
+
+a.self { font-weight: bold; text-decoration: none; color: #444; border-bottom: 1px solid #aaa }
+
+p, select, label, .blurb, a.turn-off-codemirror {
+    font:13px/1.231 arial, sans-serif;
+    *font-size:small;
+}
+
+a {
+    color: #36d;
+}
+
+a.turn-off-codemirror {
+    margin-left: 25px;
+}
+
+button#submit {
+    clear: both;
+    margin-top: 5px;
+    width: 100%;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+#source {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+button#submit em {
+    font-size: 11px;
+    font-style: normal;
+    color: #999;
+}
+
+label {
+    cursor: pointer;
+}
+
+select {
+    width: 220px;
+}
+
+table#options {
+    float: right;
+}
+table#options td {
+    vertical-align: top;
+    padding-left: 10px;
+}
+
+#about p {
+    margin: 0 6px 6px 0;
+}
+
+li {
+    line-height: 150%;
+}
+li.writeme {
+    padding-top: 8px;
+}
+
+
+#testresults {
+    display: none;
+    font-family: monaco, "lucida console", "courier new", monospace;
+}
+
+.CodeMirror {
+    border: 1px solid #ccc;
+    margin-bottom: 6px;
+    background: white;
+}
+.CodeMirror-scroll {
+  min-height: 400px;
+  max-height: 100%;
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: 100%
+}
+.contributors a {
+    white-space: nowrap;
+}
+    </style>
+<script src="./Online JavaScript beautifier_files/jquery.js"></script>
+<script src="./Online JavaScript beautifier_files/jquery.cookie.js"></script>
+
+
+<script src="./Online JavaScript beautifier_files/beautify.js"></script>
+<script src="./Online JavaScript beautifier_files/beautify-css.js"></script>
+<script src="./Online JavaScript beautifier_files/beautify-html.js"></script>
+<script src="./Online JavaScript beautifier_files/sanitytest.js"></script>
+<script src="./Online JavaScript beautifier_files/beautify-tests.js"></script>
+<script src="./Online JavaScript beautifier_files/javascriptobfuscator_unpacker.js"></script>
+<script src="./Online JavaScript beautifier_files/urlencode_unpacker.js"></script>
+<script src="./Online JavaScript beautifier_files/p_a_c_k_e_r_unpacker.js"></script>
+<script src="./Online JavaScript beautifier_files/myobfuscate_unpacker.js"></script>
+
+<script>
+
+var the = {
+    use_codemirror: ( ! window.location.href.match(/without-codemirror/)),
+    beautify_in_progress: false,
+    editor: null // codemirror editor
+};
+
+function run_tests() {
+    var st = new SanityTest();
+    run_beautifier_tests(st);
+    JavascriptObfuscator.run_tests(st);
+    P_A_C_K_E_R.run_tests(st);
+    Urlencoded.run_tests(st);
+    MyObfuscate.run_tests(st);
+    // $('#testresults').html(results.replace(/r/g, '').replace(/\n/g, '<br>'));
+    var results = st.results_raw().replace(/ /g, '&nbsp;').replace(/\r/g, '·').replace(/\n/g, '<br>');
+    $('#testresults').html(results).show();
+}
+
+
+function any(a, b) {
+    return a || b;
+}
+
+function read_settings_from_cookie() {
+    $('#tabsize').val(any($.cookie('tabsize'), '4'));
+    $('#brace-style').val(any($.cookie('brace-style'), 'collapse'));
+    $('#detect-packers').attr('checked', $.cookie('detect-packers') !== 'off');
+    $('#preserve-newlines').attr('checked', $.cookie('preserve-newlines') !== 'off');
+    $('#keep-array-indentation').attr('checked', $.cookie('keep-array-indentation') === 'on');
+    $('#break-chained-methods').attr('checked', $.cookie('break-chained-methods') === 'on');
+    $('#indent-scripts').val(any($.cookie('indent-scripts'), 'normal'));
+    $('#space-before-conditional').attr('checked', $.cookie('space-before-conditional') !== 'off');
+    $('#unescape-strings').attr('checked', $.cookie('unescape-strings') === 'on');
+}
+
+function store_settings_to_cookie() {
+    var opts = { expires: 360 };
+    $.cookie('tabsize', $('#tabsize').val(), opts);
+    $.cookie('brace-style', $('#brace-style').val(), opts);
+    $.cookie('detect-packers', $('#detect-packers').attr('checked') ? 'on' : 'off', opts);
+    $.cookie('preserve-newlines', $('#preserve-newlines').attr('checked') ? 'on' : 'off', opts);
+    $.cookie('keep-array-indentation', $('#keep-array-indentation').attr('checked') ? 'on' : 'off', opts);
+    $.cookie('break-chained-methods', $('#break-chained-methods').attr('checked') ? 'on' : 'off', opts);
+    $.cookie('space-before-conditional', $('#space-before-conditional').attr('checked') ? 'on' : 'off', opts);
+    $.cookie('unescape-strings', $('#unescape-strings').attr('checked') ? 'on' : 'off', opts);
+    $.cookie('indent-scripts', $('#indent-scripts').val(), opts);
+}
+
+function unpacker_filter(source) {
+    var trailing_comments = '';
+    var comment = '';
+    var found = false;
+
+    do {
+        found = false;
+        if (/^\s*\/\*/.test(source)) {
+            found = true;
+            comment = source.substr(0, source.indexOf('*/') + 2);
+            source = source.substr(comment.length).replace(/^\s+/, '');
+            trailing_comments += comment + "\n";
+        } else if (/^\s*\/\//.test(source)) {
+            found = true;
+            comment = source.match(/^\s*\/\/.*/)[0];
+            source = source.substr(comment.length).replace(/^\s+/, '');
+            trailing_comments += comment + "\n";
+        }
+    } while (found);
+
+    if (P_A_C_K_E_R.detect(source)) {
+        // P.A.C.K.E.R unpacking may fail, even though it is detected
+        var unpacked = P_A_C_K_E_R.unpack(source);
+        if (unpacked != source) {
+            source = unpacker_filter(unpacked);
+        }
+    }
+    if (Urlencoded.detect(source)) {
+        source = unpacker_filter(Urlencoded.unpack(source))
+    }
+    if (JavascriptObfuscator.detect(source)) {
+        source = unpacker_filter(JavascriptObfuscator.unpack(source))
+    }
+    if (MyObfuscate.detect(source)) {
+        source = unpacker_filter(MyObfuscate.unpack(source))
+    }
+
+    return trailing_comments + source;
+}
+
+
+function beautify()
+{
+    if (the.beautify_in_progress) return;
+
+    store_settings_to_cookie();
+
+    the.beautify_in_progress = true;
+
+    var source = the.editor ? the.editor.getValue() : $('#source').val(),
+        output,
+        opts = {};
+
+    opts.indent_size = $('#tabsize').val();
+    opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+    opts.preserve_newlines = $('#preserve-newlines').attr('checked');
+    opts.keep_array_indentation = $('#keep-array-indentation').attr('checked');
+    opts.break_chained_methods = $('#break-chained-methods').attr('checked');
+    opts.indent_scripts = $('#indent-scripts').val();
+    opts.brace_style = $('#brace-style').val();
+    opts.space_before_conditional = $('#space-before-conditional').attr('checked');
+    opts.unescape_strings = $('#unescape-strings').attr('checked');
+    opts.space_after_anon_function = true;
+
+    if (looks_like_html(source)) {
+        output = style_html(source, opts);
+    } else {
+        if ($('#detect-packers').attr('checked')) {
+            source = unpacker_filter(source);
+        }
+        output = js_beautify(source, opts);
+    }
+    if (the.editor) {
+        the.editor.setValue(output);
+    } else {
+        $('#source').val(output);
+    }
+
+    the.beautify_in_progress = false;
+}
+
+function looks_like_html(source)
+{
+    // <foo> - looks like html
+    // <!--\nalert('foo!');\n--> - doesn't look like html
+
+    var trimmed = source.replace(/^[ \t\n\r]+/, '');
+    var comment_mark = '<' + '!-' + '-';
+    return (trimmed && (trimmed.substring(0, 1) === '<' && trimmed.substring(0, 4) !== comment_mark));
+}
+
+$(function() {
+
+    read_settings_from_cookie();
+
+    var default_text = "// This is just a sample script. Paste your real code (javascript or HTML) here.\n\nif ('this_is'==/an_example/){of_beautifer();}else{var a=b?(c%d):e[f];}";
+
+    if (the.use_codemirror && typeof CodeMirror !== 'undefined') {
+        the.editor = CodeMirror.fromTextArea($('#source').get(0))
+        the.editor.setValue(default_text);
+        $('.CodeMirror').click(function () {
+            if (the.editor.getValue() == default_text) {
+                the.editor.setValue('');
+            }
+        });
+    } else {
+        $('#source').val(default_text).bind('click focus', function () {
+            if ($(this).val() == default_text) {
+                $(this).val('');
+            }
+        }).bind('blur', function () {
+            if ( ! $(this).val()) {
+                $(this).val(default_text);
+            }
+        });
+    }
+
+
+    $(window).bind('keydown', function (e) {
+        if (e.ctrlKey && e.keyCode == 13) {
+            beautify();
+        }
+    })
+    $('#submit').click(beautify);
+    $('select').change(beautify);
+
+
+});
+</script>
+</head>
+<body>
+
+    <table id="options">
+        <tbody><tr>
+          <td>
+          <select name="tabsize" id="tabsize">
+            <option value="1">indent with a tab character</option>
+            <option value="2">indent with 2 spaces</option>
+            <option value="3">indent with 3 spaces</option>
+            <option value="4">indent with 4 spaces</option>
+            <option value="8">indent with 8 spaces</option>
+          </select><br>
+
+          <select id="brace-style">
+            <option value="collapse">Braces with control statement</option>
+            <option value="expand">Braces on own line</option>
+            <option value="end-expand">End braces on own line</option>
+            <!-- option value="expand-strict">Braces always on own line (not recommended)</option -->
+          </select>
+
+          <p style="margin:6px 0 0 0">HTML &lt;style&gt;, &lt;script&gt; formatting:</p><select id="indent-scripts">
+            <option value="keep">Keep indent level of the tag</option>
+            <option value="normal">Add one indent level</option>
+            <option value="separate">Separate indentation</option>
+          </select>
+
+        </td><td>
+
+          <input class="checkbox" type="checkbox" id="preserve-newlines"><label for="preserve-newlines"> Preserve empty lines?</label><br>
+          <input class="checkbox" type="checkbox" id="detect-packers"><label for="detect-packers"> Detect packers and obfuscators?</label><br>
+          <input class="checkbox" type="checkbox" id="keep-array-indentation"><label for="keep-array-indentation"> Keep array indentation?</label><br>
+          <input class="checkbox" type="checkbox" id="break-chained-methods"><label for="break-chained-methods"> Break lines on chained methods?</label><br>
+          <input class="checkbox" type="checkbox" id="space-before-conditional"><label for="space-before-conditional"> Space before conditional: "if(x)" / "if (x)"</label><br>
+          <input class="checkbox" type="checkbox" id="unescape-strings"><label for="unescape-strings"> Unescape printable chars encoded as \xNN or \uNNNN?</label>
+          <br><a href="http://jsbeautifier.org/?without-codemirror" class="turn-off-codemirror">Use a simple textarea for code input?</a>
+
+
+        </td></tr>
+    </tbody></table>
+
+    <div id="about">
+            <p><a class="self" href="./Online JavaScript beautifier_files/Online JavaScript beautifier.html">Beautify, unpack or deobfuscate JavaScript and HTML, make JSON/JSONP readable, etc.</a></p>
+            <p>All of the source code is completely free and open, available on the <a href="https://github.com/einars/js-beautify">github</a> under MIT licence, <br>and we have a command-line version and a python library as well.
+    </p></div>
+
+
+    <button id="submit"><strong>Beautify JavaScript or HTML</strong> <em>(ctrl-enter)</em></button>
+    <textarea id="source" rows="30" cols="160" style="display: none;"></textarea><div class="CodeMirror CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 58px; left: 1422px;"><textarea style="position: absolute; padding: 0; width: 1px; height: 1em" wrap="off" autocorrect="off" autocapitalize="off"></textarea></div><div class="CodeMirror-scroll cm-s-default" tabindex="-1"><div style="position: relative; height: 140px; width: 2302px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-gutter" style="display: none;"><div class="CodeMirror-gutter-text"></div></div><div class="CodeMirror-lines"><div style="position: relative; z-index: 0; outline: none; width: 2288px;"><div style="position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden;"><pre>    <span class="cm-string">"How Then Governor Goodluck Jonathan Gave Obaigbena $1 Million From Bayelsa&amp;rsquo;s Poverty Alleviation Funds For Beyonce And Jay Z's Visit To Nigeria"</span>: <span class="cm-string">"http://saharareporters.com/sites/default/files/imagecache/news-page-images-480-wide/page_images/news/2013/beyonce2_jayzee9.jpg"</span>,<span id="CodeMirror-temp-831065"> </span></pre></div><pre class="CodeMirror-cursor" style="top: 52px; left: 2288px; visibility: hidden;">&nbsp;</pre><div style="position: relative; z-index: -1; display: none;"><div class="CodeMirror-selected" style="position: absolute; left: 1256px; top: 52px; right: 496px; height: 13px"></div></div><div style=""><pre>{</pre><pre>    <span class="cm-string">"Swansea missing boy found under bean bag after police search"</span>: <span class="cm-string">"http:\/\/news.bbcimg.co.uk\/media\/images\/65997000\/jpg\/_65997609_beanbag.jpg"</span>,</pre><pre>    <span class="cm-string">"Boy Who Ate Walls Gets \u2018Inedible\u2019 Bedroom."</span>: <span class="cm-string">"http:\/\/abcnews.go.com\/images\/Health\/ht_zach_tahir_tk_130220_wblog.jpg"</span>,</pre><pre>    <span class="cm-string">"Researchers concerned about goldfish in Lake Tahoe"</span>: <span class="cm-string">"http:\/\/external.ak.fbcdn.net\/safe_image.php?d=AQDD9_WmwbTkjjPm&amp;w=155&amp;h=114&amp;url=http%3A%2F%2Fmedia.graytvinc.com%2Fimages%2F545196_4186981955845_612493113_n.jpg"</span>,</pre><pre>    <span class="cm-string">"How Then Governor Goodluck Jonathan Gave Obaigbena $1 Million From Bayelsa&amp;rsquo;s Poverty Alleviation Funds For Beyonce And Jay Z's Visit To Nigeria"</span>: <span class="cm-string">"http://saharareporters.com/sites/default/files/imagecache/news-page-images-480-wide/page_images/news/2013/beyonce2_jayzee9.jpg"</span>,</pre><pre>    <span class="cm-string">"Strip Club Must Pay $10.5 Million in Monster Truck Death"</span>: <span class="cm-string">"http:\/\/media.nbcdfw.com\/images\/654*368\/web_strip_club.jpg"</span>,</pre><pre>    <span class="cm-string">"12 Years Old Runaway Kid Steals Money and Spends It on Hookers"</span>: <span class="cm-string">"http:\/\/redhotrussia.com\/wp-content\/uploads\/2013\/02\/12-years-old-Artyom.jpg"</span>,</pre><pre>    <span class="cm-string">"Oscar Pistorius case: lead investigator is facing attempted murder charges"</span>: <span class="cm-string">"http:\/\/static.guim.co.uk\/sys-images\/Guardian\/Pix\/audio\/video\/2013\/2\/20\/1361360944969\/Oscar-Pistorius-in-court--015.jpg"</span>,</pre><pre>    <span class="cm-string">"'Pasta' is verboten on Quebec menus"</span>: <span class="cm-string">"http:\/\/montreal.ctvnews.ca\/polopoly_fs\/1.1164123!\/httpImage\/image.jpg_gen\/derivatives\/landscape_960\/image.jpg"</span></pre><pre>}</pre></div></div></div></div></div></div></div>
+
+    <div class="blurb">
+      <div style="float:right; width: 210px;">
+      <a style="display:block; float: left; padding-top: 3px" href="http://flattr.com/thing/94550/jsbeautifier-org" target="_blank"><img src="./Online JavaScript beautifier_files/flattr-badge-large.png" alt="Flattr"></a>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="TL28UJK2ARCUJ">
+        <input style="border:0" type="image" src="./Online JavaScript beautifier_files/paypal-donate.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" src="./Online JavaScript beautifier_files/pixel.gif" width="1" height="1">
+      </form>
+      </div>
+
+      <p>Browser extensions and other uses:</p>
+      <ul id="uses">
+
+      <li>A <a href="javascript:(function(){s=document.getElementsByTagName('SCRIPT');tx='';sr=[];for(i=0;i<s.length;i++){with(s.item(i)){t=text;if(t){tx+=t;}else{sr.push(src)};}};with(window.open()){document.write('<textarea id="t">'+(sr.join("\n"))+"\n\n-----\n\n"+tx+'</textarea><script src="http://jsbeautifier.org/beautify.js"></script><script>with(document.getElementById("t")){value=js_beautify(value);with(style){width="99%";height="99%";borderStyle="none";}};</script>');document.close();}})();"><strong>bookmarklet</strong></a> (drag it to your bookmarks) by Ichiro Hiroshi to see all scripts used on the page,</li>
+
+      <li style="margin-top: 8px"><strong>Chrome</strong>: <a href="https://github.com/rixth/jsbeautify-for-chrome">jsbeautify-for-chrome</a> by Tom Rix,</li>
+      <li><strong>Chrome</strong>: <a href="https://chrome.google.com/webstore/detail/piekbefgpgdecckjcpffhnacjflfoddg">Pretty Beautiful JavaScript</a> by Will McSweeney,</li>
+      <li><strong>Chrome</strong>: <a href="https://chrome.google.com/webstore/detail/cfmcghennfbpmhemnnfjhkdmnbidpanb">Quick source viewer</a> by Tomi Mickelsson (<a href="https://github.com/tomimick/chrome-ext-view-src">github</a>, <a href="http://tomicloud.com/2012/07/viewsrc-chrome-ext">blog</a>),</li>
+      <li style="margin-top: 8px"><strong>Firefox</strong>: <a href="https://addons.mozilla.org/en-US/firefox/addon/javascript-deminifier/">Javascript deminifier</a> by Ben Murphy, to be used together with the firebug (<a href="https://github.com/benmmurphy/jsdeminifier_xpi/">github</a>),</li>
+      <li style="margin-top: 8px"><strong>Safari</strong>: <a href="http://spadin.github.com/js-beautify-safari-extension">Safari extension</a> by Sandro Padin,</li>
+      <li style="margin-top: 8px"><strong>Opera</strong>: <a href="https://addons.opera.com/addons/extensions/details/readable-javascript/">Readable JavaScript</a> (<a href="https://github.com/Dither/readable-javascript">github</a>) by Dither,</li>
+      <li><strong>Opera</strong>: <a href="https://addons.opera.com/addons/extensions/details/source/">Source</a> extension by Deathamns,</li>
+      <li style="margin-top: 8px"><strong>Sublime Text 2:</strong> <a href="https://github.com/jdc0589/JsFormat">JsFormat</a>, a javascript formatting plugin for this nice editor by Davis Clark,</li>
+      <li style="margin-top: 8px"><strong>vim:</strong> <a href="https://github.com/michalliu/sourcebeautify.vim">sourcebeautify.vim</a>, a plugin by michalliu (requires node.js, V8, SpiderMonkey or cscript js engine),</li>
+      <li><strong>vim:</strong> <a href="https://github.com/maksimr/vim-jsbeautify">vim-jsbeautify</a>, a plugin by Maksim Ryzhikov (node.js or V8 required),</li>
+      <li style="margin-top: 12px"><a href="http://fiddler2.com/">Fiddler</a> proxy: <a href="http://fiddler2.com/Fiddler2/extensions.asp">JavaScript Formatter addon</a>,
+      </li><li><a href="https://github.com/nagaozen/gedit-tunnings/">gEdit tips</a> by Fabio Nagao,</li>
+      <li><a href="http://akelpad.sourceforge.net/forum/viewtopic.php?p=11246#11246">Akelpad extension</a> by Infocatcher,</li>
+      <li>Beautifier in <a href="http://sethmason.com/2011/04/28/jsbeautify-in-emacs.html">Emacs</a> write-up by Seth Mason,</li>
+      <li><a href="http://c9.io/">Cloud9</a>, a lovely IDE running in a browser, working in the node/cloud, uses jsbeautifier (<a href="https://github.com/ajaxorg/cloud9">github</a>),</li>
+      <li><a href="http://www.symetronapps.com/pages/apps/shrinker.html">Shrinker</a>, a non-free JavaScript packer for Mac. I&nbsp;haven't used it, so I&nbsp;have no idea if it's any good,</li>
+      <li><a href="http://www.restconsole.com/">REST Console</a>, a request debugging tool for Chrome, beautifies JSON responses (<a href="https://github.com/codeinchaos/rest-console">github</a>),</li>
+      <li><a href="http://mitmproxy.org/">mitmproxy</a>, a nifty SSL-capable HTTP proxy, provides pretty javascript responses (<a href="https://github.com/cortesi/mitmproxy">github</a>).</li>
+      <li><a href="http://www.wakanda.org/">wakanda</a>, a neat IDE for web and mobile applications has a <a href="http://forum.wakanda.org/showthread.php?1483-3-new-extensions-JSLint-Beautifier-and-Snippet">Beautifier extension</a> (<a href="https://github.com/Wakanda/wakanda-extensions/tree/master/Beautifier">github</a>).</li>
+      <li><a href="http://portswigger.net/burp/">Burp Suite</a> now has a <a href="http://code.google.com/p/burp-suite-beautifier-extension/">beautfier extension</a>, thanks to Soroush Dalili,</li>
+      <li><a href="http://plugins.netbeans.org/plugin/43263/jsbeautify">Netbeans jsbeautify</a> plugin by Drew Hamlett (<a href="https://github.com/drewhjava/netbeans-jsbeautify">github</a>).</li>
+      <li><a href="https://github.com/drewhjava/brackets-beautify">brackets-beautify-extension</a> for <a href="http://brackets.io/">Adobe Brackets</a> by Drew Hamlett (<a href="https://github.com/drewhjava/brackets-beautify">github</a>).</li>
+      <li class="writeme">Doing anything interesting? Write me to einar@jsbeautifier.org and I'll include your link.</li>
+      </ul>
+
+      <p class="me-me-me">Written by Einar Lielmanis, <a href="mailto:einar@jsbeautifier.org">einar@jsbeautifier.org</a>, Python version flourished by <a href="https://github.com/esseks">Stefano Sanfilippo</a>. We use the wonderful <a href="http://codemirror.net/">CodeMirror</a> syntax highlighting editor, written by Marijn Haverbeke.</p>
+      <p class="contributors">Made with a great help of <a href="http://jason.diamond.name/weblog/">Jason&nbsp;Diamond</a>, Patrick&nbsp;Hof, Nochum&nbsp;Sossonko, Andreas&nbsp;Schneider, Dave&nbsp;Vasilevsky, <a href="http://my.opera.com/Vital/blog/">Vital&nbsp;Batmanov</a>, Ron&nbsp;Baldwin, Gabriel&nbsp;Harrison, <a href="http://shullian.com/">Chris&nbsp;J.&nbsp;Shull</a>, <a href="http://mathiasbynens.be/">Mathias Bynens</a>, <a href="https://www.vittgam.net/">Vittorio Gambaletta</a> and others.
+    </p>
+
+    <p style="text-align:right">
+    <a href="http://jsbeautifier.org/#" style="color: #ccc; border-bottom: 1px dashed #ccc; text-decoration: none;" onclick="run_tests(); return false;">Run the tests</a>
+    </p>
+
+    </div>
+    <div id="testresults"></div>
+    <script>
+        var _gaq = [['_setAccount', 'UA-7409939-1'], ['_trackPageview']];
+        (function(d, t) {
+            var g = d.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            g.src = '//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+
+
+</body></html>
