@@ -50,13 +50,14 @@
 		
 		$client = new Google_Client();
 		$client->setApplicationName('Not The Onion');
-		$client->setDeveloperKey('AIzaSyB8aIN6bkHdoAt-2JGb5HRavVKR2NNw-fg');
-
+		//$client->setDeveloperKey('AIzaSyB8aIN6bkHdoAt-2JGb5HRavVKR2NNw-fg');
+		$client->setDeveloperKey('AIzaSyAlZ6Rt-PAmZY-1RFFki6XU1MMChGAt9mY');
 		try {
 			if(!$GOOGLE_API_OVERUSE) {
 				$search = new Google_CustomsearchService($client);
 				$results = $search->cse->listCse($title, array(
-					'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
+					//'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
+					'cx' => '000165549053786166966:ql3eaq3lk9w',
 					'searchType' => 'image'
 				));
 
