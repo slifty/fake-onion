@@ -129,10 +129,10 @@
 <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
 <script type="text/javascript">
 		var metadata = {"master_vpv_path": "http://www.theonion.com/onion/home/", "vpv_path": "http://www.theonion.com/vpv/home/", "targeting": {"dfp_pagetype": "home", "dfp_adchannel": "home", "dfp_site": "theonion", "dfp_articletype": "home"}};
-	</script>
-<link rel="stylesheet" href="http://www.theonion.com/static/CACHE/css/2903347c3113.css" type="text/css" media="all">
-<link rel="stylesheet" href="http://www.theonion.com/static/CACHE/css/0f8c591ecd80.css" type="text/css">
-<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="http://www.theonion.com/static/onion/css/redesign/ie.css" /><script type="text/javascript" src="http://www.theonion.com/static/onion/js/html5shiv.js"></script><script type="text/javascript" src="http://www.theonion.com/static/onion/js/html5shiv-printshiv.js"></script><script type="text/javascript" src="http://www.theonion.com/static/onion/js/respond.js"></script><![endif]-->
+</script>
+<link rel="stylesheet" href="css/1.css" type="text/css" media="all">
+<link rel="stylesheet" href="css/2.css" type="text/css">
+<!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="css/ie.css" /><![endif]-->
 <link rel="canonical" href="http://www.theon1on.com">
 <link rel="icon" type="image/png" href="favicon.ico">
 <script type="text/javascript">
@@ -158,7 +158,6 @@
 	<div class="wrap">
 		<header class="site-header">
 		<h1><a href="http://www.theonion.com/" title="Home - The Onion" class="bgcontain" style="background:url('onion-full.png');">
-		<img src="onion-full.gif" alt="The On1on" title="The On1on" />
 		</a></h1>
 		<div id="meta-strip" class="inner-wrap">
 			<div id="weather">
@@ -422,16 +421,6 @@
 			</section>
 		</div>
 		<section class="col-4" data-ct_section_name=":4">
-			<!-- AddThis Button BEGIN -->
-			<div class="addthis_toolbox addthis_floating_style addthis_32x32_style" style="left:50px;top:50px;">
-			<a class="addthis_button_preferred_1"></a>
-			<a class="addthis_button_preferred_2"></a>
-			<a class="addthis_button_preferred_3"></a>
-			<a class="addthis_button_preferred_4"></a>
-			<a class="addthis_button_compact"></a>
-			</div>
-			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5126677f5afaa4c5"></script>
-			<!-- AddThis Button END -->
 			<p>This site is quick hack by <a href="http://www.slifty.com">Dan Schultz</a> and <a href="http://mattstempeck.com">Matt Stempeck</a>.</p>
 		</section>
 		<section class="col-5" data-ct_section_name=":5">
