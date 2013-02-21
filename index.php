@@ -84,10 +84,36 @@
 	}
 
 	function get_tweet() {
-		return "gonna rest up. Manchester tonight. #BELIEVEtour";
+		global $tweet_cache;
+		global $tweet_cache_location;
+		$time = time();
+		if(array_key_exists("time", $tweet_cache) && $tweet_cache > $time - 900) // 15 minute cache
+			return $tweet_cache["tweet"];
+
 		$url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=justinbieber&count=1';
-		$tweets = json_decode(file_get_contents($url),TRUE);
-		return $tweets[0]["text"];
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$output = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); //get the code of request
+		curl_close($ch);
+		
+		$tweet_cache["time"] = $time;
+		$tweet_cache["tweet"] = "gonna rest up. Manchester tonight. #BELIEVEtour";
+
+		if($httpCode == 200) {
+			$tweets = json_decode(file_get_contents($url),TRUE);
+
+			$tweet_cache["time"] = $time;
+			$tweet_cache["tweet"] = $tweets[0]["text"];
+		}
+
+		$f = fopen($tweet_cache_location,'w');
+		fwrite($f, json_encode($tweet_cache));
+		fclose($f);
+
+		return $tweet_cache["tweet"];
 	}
 
 ?>
