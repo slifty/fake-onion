@@ -21,6 +21,14 @@
 	}
 	$image_cache = json_decode(file_get_contents($image_cache_location), true);
 
+	$tweet_cache_location = "cache/tweets.json";
+	if(!file_exists($tweet_cache_location)) {
+		$f = fopen($tweet_cache_location,'w');
+		fwrite($f, "{}");
+		fclose($f);
+	}
+	$tweet_cache = json_decode(file_get_contents($tweet_cache_location), true);
+
 	$items = array();
 	foreach ($feed->get_items() as $item) {
 		$items[] = $item;
@@ -155,7 +163,7 @@
 				<li class="politics" style=""><a href="http://www.theonion.com/section/politics/">Politics</a></li>
 				<li class="sports" style=""><a href="http://www.theonion.com/section/sports/">Sports</a></li>
 				<li class="business" style=""><a href="http://www.theonion.com/section/business/">Business</a></li>
-				<li class="science-technology" style=""><a href="http://www.theonion.com/section/science-technology/">Science/Tech</a></li>
+				<li class="science-technology" style=""><a href="http://www.icr.org/">Science/Tech</a></li>
 				<li class="entertainment" style=""><a href="http://www.theonion.com/section/entertainment/">Entertainment</a></li>
 				<li class="breaking" style=""><a href="http://www.theonion.com/breaking">Breaking</a></li>
 				<li class="more" style="display: none;"><a href="#" onclick="return false">More <i class="icon-chevron-down"></i></a>
