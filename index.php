@@ -398,11 +398,11 @@
 			</div>
 			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5126677f5afaa4c5"></script>
 			<!-- AddThis Button END -->
-			<p>This site is quick hack by Dan Schultz and Matt Stempeck.</p>
+			<p>This site is quick hack by <a href="http://www.slifty.com">Dan Schultz</a> and <a href="mattstempeck.com">Matt Stempeck</a>.</p>
 		</section>
-		<section class="col-5" data-ct_section_name=":5"><nav>
+		<section class="col-5" data-ct_section_name=":5">
 		<p>
-			The Onion has nothing to do with this site, we don't represent them.  In fact, we love them.  If you don't love us back, please get in touch directly using slifty@gmail.com.
+			The Onion has nothing to do with this site, we don't represent them.  In fact, we love them.  If you don't love us back, please get in touch: <a href="http://www.twitter.com/slifty">@slifty</a> and <a href="http://www.twitter.com/mstem">@mstem</a>.
 		</p>
 		</section>
 	</div>
