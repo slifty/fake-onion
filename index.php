@@ -12,7 +12,7 @@
 	global $image_cache;
 	global $image_cache_location;
 	global $GOOGLE_API_OVERUSE;
-	$GOOGLE_API_OVERUSE = false;
+	$GOOGLE_API_OVERUSE = true;
 	$image_cache_location = "cache/images.json";
 	if(!file_exists($image_cache_location)) {
 		$f = fopen($image_cache_location,'w');
@@ -27,6 +27,15 @@
 	}
 
 	session_start();
+
+	function get_url($item) {
+		$description = $item->get_description();
+		$userpos = strpos($description, '<a href="');
+		$startpos = strpos($description, '<a href="', $userpos + 9);
+		$endpos = strpos($description, '">', $startpos);
+		$url = substr($description, $startpos + 9, $endpos - $startpos - 9);
+		return $url;
+	}
 
 	function get_image($item) {
 		global $image_cache;
@@ -65,7 +74,7 @@
 		return $image_url;
 	}
 
-	get_image($items[0]);
+	get_url($items[0]);
 	function get_tweet() {
 		$url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=justinbieber&count=1';
 		$tweets = json_decode(file_get_contents($url),TRUE);
@@ -198,10 +207,10 @@
 										<?php $item = array_shift($items); ?>
 										<article data-contentlist="lead-story" class="article" data-article-id="31373">
 										<div class="picture">
-											<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
+											<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
 										</div>
 										
-										<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+										<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 										</article>
 									</div>
 								</div>
@@ -215,18 +224,18 @@
 											<?php $item = array_shift($items); ?>
 											<article class="article" data-article-id="31373">
 											<div class="picture">
-												<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
+												<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
 											</div>
-											<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+											<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 											</article>
 										</div>
 										<div class="feature con tertiary supporting" data-ct_section_name=":2">
 											<?php $item = array_shift($items); ?>
 											<article class="article" data-article-id="31362">
 											<div class="picture">
-												<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
+												<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
 											</div>
-											<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+											<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 											<div class="text"></div>
 											</article>
 										</div>
@@ -234,9 +243,9 @@
 											<?php $item = array_shift($items); ?>
 											<article class="article" data-article-id="31354">
 											<div class="picture">
-												<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
+												<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
 											</div>
-											<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+											<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 											<div class="text">
 											</div>
 											</article>
@@ -245,9 +254,9 @@
 											<?php $item = array_shift($items); ?>
 											<article class="article" data-article-id="31355">
 											<div class="picture">
-												<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
+												<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
 											</div>
-											<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+											<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 											<div class="text">
 											</div>
 											</article>
@@ -265,21 +274,21 @@
 							<div data-contentlist="recent-news-feature" class="featured">
 								<?php $item = array_shift($items); ?>
 								<div class="picture">
-									<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
+									<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
 								</div>
-								<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+								<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 								<div class="meta">
 								</div>
 							</div>
 							<div data-contentlist="recent-news-items" class="list" data-ct_section_name=":list">
 								<?php $item = array_shift($items); ?>
-								<a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a>
+								<a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a>
 								<?php $item = array_shift($items); ?>
-								<a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a>
+								<a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a>
 								<?php $item = array_shift($items); ?>
-								<a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a>
+								<a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a>
 								<?php $item = array_shift($items); ?>
-								<a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a>
+								<a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a>
 							</div>
 							</section><section class="news-highlight bordered" data-ct_section_name="highlights">
 							<div class="inner">
@@ -287,15 +296,15 @@
 								<div data-contentlist="highlights-feature" class="featured" data-ct_section_name=":featured">
 									<?php $item = array_shift($items); ?>
 									<div class="picture">
-										<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
+										<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""></a>
 									</div>
-									<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+									<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 								</div>
 								<div data-contentlist="highlights-items" class="list">
 									<?php $item = array_shift($items); ?>
-									<a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a>
+									<a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a>
 									<?php $item = array_shift($items); ?>
-									<a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a>
+									<a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a>
 								</div>
 							</div>
 							</section>
@@ -311,7 +320,7 @@
 							<section data-contentlist="american-voices">
 							<h4 data-ct_section_name=":title"><a href="http://www.theonion.com/features/american-voices/">American Voices</a></h4>
 							<article data-article-id="31364" data-ct_section_name=":1">
-							<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+							<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 							<div class="picture" data-ct_section_name=":image">
 								<a href="https://twitter.com/justinbieber"><img class="lazy-loaded" src="http://s6.favim.com/orig/61/justin-bieber-justin-bieber-photography-justin-bieber-images-justin-bieber-photos-justin-bieber-pictures-Favim.com-613705.jpg"></a>
 							</div>
@@ -321,11 +330,11 @@
 							</article>
 							<ul class="related" data-contentlist="american-voices">
 								<?php $item = array_shift($items); ?>
-								<li><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></li>
+								<li><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></li>
 								<?php $item = array_shift($items); ?>
-								<li><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></li>
+								<li><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></li>
 								<?php $item = array_shift($items); ?>
-								<li><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></li>
+								<li><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></li>
 							</ul>
 							</section>
 						</div>
@@ -335,9 +344,9 @@
 					<div data-layout-group="a3">
 								<?php $item = array_shift($items); ?>
 								<div class="picture">
-									<a href="<?php echo($item->get_permalink()); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
+									<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
 								</div>
-								<h1><a class="title" href="<?php echo($item->get_permalink()); ?>"><?php echo($item->get_title()); ?></a></h1>
+								<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 								<div class="meta">
 								</div>
 
