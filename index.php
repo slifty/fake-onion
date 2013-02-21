@@ -389,19 +389,20 @@
 		</div>
 		<section class="col-4" data-ct_section_name=":4">
 			<!-- AddThis Button BEGIN -->
-			<div class="addthis_toolbox addthis_floating_style addthis_16x16_style" style="left:50px;top:50px;">
+			<div class="addthis_toolbox addthis_floating_style addthis_32x32_style" style="left:50px;top:50px;">
 			<a class="addthis_button_preferred_1"></a>
 			<a class="addthis_button_preferred_2"></a>
 			<a class="addthis_button_preferred_3"></a>
 			<a class="addthis_button_preferred_4"></a>
 			<a class="addthis_button_compact"></a>
 			</div>
-			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-51266575407ee647"></script>
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5126677f5afaa4c5"></script>
 			<!-- AddThis Button END -->
+			<p>This site is quick hack by Dan Schultz and Matt Stempeck.</p>
 		</section>
 		<section class="col-5" data-ct_section_name=":5"><nav>
 		<p>
-			The Onion has nothing to do with this site, we don't represent them.
+			The Onion has nothing to do with this site, we don't represent them.  In fact, we love them.  If you don't love us back, please get in touch directly using slifty@gmail.com.
 		</p>
 		</section>
 	</div>
