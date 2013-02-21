@@ -98,8 +98,7 @@
 <link rel="stylesheet" href="http://www.theonion.com/static/CACHE/css/2903347c3113.css" type="text/css" media="all">
 <link rel="stylesheet" href="http://www.theonion.com/static/CACHE/css/0f8c591ecd80.css" type="text/css">
 <!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="http://www.theonion.com/static/onion/css/redesign/ie.css" /><script type="text/javascript" src="http://www.theonion.com/static/onion/js/html5shiv.js"></script><script type="text/javascript" src="http://www.theonion.com/static/onion/js/html5shiv-printshiv.js"></script><script type="text/javascript" src="http://www.theonion.com/static/onion/js/respond.js"></script><![endif]-->
-<link rel="canonical" href="http://www.theonion.com">
-<link rel="alternate" type="application/rss+xml" title="The Onion: Daily News" href="http://feeds.theonion.com/theonion/daily">
+<link rel="canonical" href="http://www.theon1on.com">
 <link rel="icon" type="image/png" href="favicon.ico">
 <script type="text/javascript">
 
