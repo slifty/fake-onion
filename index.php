@@ -12,7 +12,7 @@
 	global $image_cache;
 	global $image_cache_location;
 	global $GOOGLE_API_OVERUSE;
-	$GOOGLE_API_OVERUSE = false;
+	$GOOGLE_API_OVERUSE = true;
 	$image_cache_location = "cache/images.json";
 	if(!file_exists($image_cache_location)) {
 		$f = fopen($image_cache_location,'w');
@@ -140,24 +140,9 @@
 			</div>
 			<div id="networks" data-ct_section_name="social">
 				<ul>
-					<li class="av" data-ct_section_name="av"><a href="http://www.avclub.com/" target="_blank" class="bgcontain">
-					<!--[if lt IE 9]><img src="http://www.theonion.com/static/onion/img/avclub-small_1x.png" alt="A.V. Club" title="A.V. Club" /><![endif]-->
-					</a></li>
 					<li class="social">
-					<ul class="icons">
-						<li><a href="#" class="facebook"><img src="http://www.theonion.com/static/onion/img/sharetools/facebook_2x.png" alt="Facebook"></a></li>
-						<li class="trigger"><a href="#" class="twitter"><img src="http://www.theonion.com/static/onion/img/sharetools/twitter_2x.png" alt="Twitter"></a></li>
-					</ul>
-					<ul class="flyout">
-						<li class="facebook">
-						<iframe id="fb-like" data-src="http://www.theonion.com//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Ftheonion&amp;width=200&amp;height=70&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=false&amp;appId=130164583741660" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:70px;" allowtransparency="true">
-						</iframe>
-						</li>
-						<li class="twitter"><a href="https://twitter.com/TheOnion" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="true">Follow @TheOnion</a>
-						<div id="twitter-placeholder">
-						</div>
-						</li>
-					</ul>
+						<br />
+						<a href="http://www.reddit.com/r/nottheonion/submit">Add a story to this page</a>
 					</li>
 				</ul>
 			</div>
@@ -382,22 +367,37 @@
 			<section class="col-1" data-ct_section_name=":1">
 			<ul data-ct_section_name=":list">
 				<li data-ct_section_name=":1">
-				<h2>This isn't actually the onion.</h2>
+				<h2>It's not The Onion.</h2>
 				</li>
 				<li data-ct_section_name=":2">
-				<h2>All these headlines are real.</h2>
+				<h2>These are all completely real.</h2>
 				</li>
 				<li data-ct_section_name=":3">
-				<h2>Isn't that depressing?</h2>
+				<h2>Depressing, ain't it.</h2>
 				</li>
 			</ul>
 			</section>
 			<section class="col-2" data-ct_section_name=":1">
+			<ul data-ct_section_name=":list">
+				<li data-ct_section_name=":1">
+					<h2>Content on this page has been lovingly curated by the "Not the Onion" subreddit.  <a href="http://www.reddit.com/r/nottheonion">Check out their community.</a></h2>
+				</li>
+			</ul>
 			</section>
 			<section class="col-3" data-ct_section_name=":1">
 			</section>
 		</div>
 		<section class="col-4" data-ct_section_name=":4">
+			<!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_floating_style addthis_16x16_style" style="left:50px;top:50px;">
+			<a class="addthis_button_preferred_1"></a>
+			<a class="addthis_button_preferred_2"></a>
+			<a class="addthis_button_preferred_3"></a>
+			<a class="addthis_button_preferred_4"></a>
+			<a class="addthis_button_compact"></a>
+			</div>
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-51266575407ee647"></script>
+			<!-- AddThis Button END -->
 		</section>
 		<section class="col-5" data-ct_section_name=":5"><nav>
 		<p>
@@ -408,7 +408,7 @@
 	</footer>
 </div>
 <style class="afns-ad-element">
-					body.afns-ad-skin div#body-wrap{                        top: 125px !important;                    }
+					body.afns-ad-skin div#body-wrap{                        top: 25px !important;                    }
 </style>
 </body>
 </html>
