@@ -397,7 +397,7 @@
 			</div>
 			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5126677f5afaa4c5"></script>
 			<!-- AddThis Button END -->
-			<p>This site is quick hack by <a href="http://www.slifty.com">Dan Schultz</a> and <a href="mattstempeck.com">Matt Stempeck</a>.</p>
+			<p>This site is quick hack by <a href="http://www.slifty.com">Dan Schultz</a> and <a href="http://mattstempeck.com">Matt Stempeck</a>.</p>
 		</section>
 		<section class="col-5" data-ct_section_name=":5">
 		<p>
