@@ -12,7 +12,7 @@
 	global $image_cache;
 	global $image_cache_location;
 	global $GOOGLE_API_OVERUSE;
-	$GOOGLE_API_OVERUSE = true;
+	$GOOGLE_API_OVERUSE = false;
 	$image_cache_location = "cache/images.json";
 	if(!file_exists($image_cache_location)) {
 		$f = fopen($image_cache_location,'w');
@@ -75,7 +75,6 @@
 		return $image_url;
 	}
 
-	get_url($items[0]);
 	function get_tweet() {
 		$url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=justinbieber&count=1';
 		$tweets = json_decode(file_get_contents($url),TRUE);
