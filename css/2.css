@@ -1,42 +1,4 @@
-@font-face {
-  font-family: 'MetaSerifWeb-Book';
-  src: url('/static/onion/fonts/MetaSerifWeb-Book.eot');
-}
 
-@font-face {
-  font-family: 'MetaSerifWeb-Book';
-  src: url('/static/onion/fonts/MetaSerifWeb-Book.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'MetaSerifWeb-BookItalic';
-  src: url('/static/onion/fonts/MetaSerifWeb-BookItalic.eot');
-}
-
-@font-face {
-  font-family: 'MetaSerifWeb-BookItalic';
-  src: url('/static/onion/fonts/MetaSerifWeb-BookItalic.woff') format("woff");
-}
-
-@font-face {
-  font-family: 'MetaSerifWeb-Bold';
-  src: url('/static/onion/fonts/MetaSerifWeb-Bold.eot');
-}
-
-@font-face {
-  font-family: 'MetaSerifWeb-Bold';
-  src: url('/static/onion/fonts/MetaSerifWeb-Bold.woff') format("woff");
-}
-
-@font-face {
-  font-family: 'MetaSerifWeb-BoldItalic';
-  src: url('/static/onion/fonts/MetaSerifWeb-BoldItalic.eot');
-}
-
-@font-face {
-  font-family: 'MetaSerifWeb-BoldItalic';
-  src: url('/static/onion/fonts/MetaSerifWeb-BoldItalic.woff') format("woff");
-}
 @charset "UTF-8";
 
 @font-face {
@@ -86,7 +48,7 @@
 .icon-chevron-left:before { content: '\e75d'; } /* '' */
 .icon-chevron-right:before { content: '\e75e'; } /* '' */
 .icon-chevron-up:before { content: '\e75f'; } /* '' */
-.icon-play-circle:before { content: '\e761'; } /* '' */
+.icon-play-circle:before { content: ''; } /* '' */
 .icon-share:before { content: '\f08e'; } /* '' */
 .icon-rss:before { content: '\f09e'; } /* '' */
 .icon-circle-arrow-left:before { content: '\f0a8'; } /* '' */
@@ -96,12 +58,12 @@
 .icon-twitter:before { content: '\f309'; } /* '' */
 .icon-facebook:before { content: '\f30e'; } /* '' */
 .icon-google-plus:before { content: '\f30f'; } /* '' */
-.icon-globe:before { content: '🌎'; } /* '\1f30e' */
-.icon-facetime-video:before { content: '🎥'; } /* '\1f3a5' */
-.icon-camera:before { content: '📷'; } /* '\1f4f7' */
-.icon-volume-up:before { content: '🔊'; } /* '\1f50a' */
-.icon-search:before { content: '🔍'; } /* '\1f50d' */
-.icon-time:before { content: '🕔'; } /* '\1f554' */
+.icon-globe:before { content: ''; } /* '\1f30e' */
+.icon-facetime-video:before { content: ''; } /* '\1f3a5' */
+.icon-camera:before { content: ''; } /* '\1f4f7' */
+.icon-volume-up:before { content: ''; } /* '\1f50a' */
+.icon-search:before { content: ''; } /* '\1f50d' */
+.icon-time:before { content: ''; } /* '\1f554' */
 /*
    Animation example, for spinners
 */

@@ -129,7 +129,7 @@
 <script src="http://edge.quantserve.com/quant.js" async="" type="text/javascript"></script>
 <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
 <script type="text/javascript">
-		var metadata = {"master_vpv_path": "http://www.theonion.com/onion/home/", "vpv_path": "http://www.theonion.com/vpv/home/", "targeting": {"dfp_pagetype": "home", "dfp_adchannel": "home", "dfp_site": "theonion", "dfp_articletype": "home"}};
+		var metadata = {"master_vpv_path": "http://www.theon1on.com", "vpv_path": "http://www.theon1on.com", "targeting": {"dfp_pagetype": "home", "dfp_adchannel": "home", "dfp_site": "theonion", "dfp_articletype": "home"}};
 </script>
 <link rel="stylesheet" href="css/1.css" type="text/css" media="all">
 <link rel="stylesheet" href="css/2.css" type="text/css">
@@ -158,15 +158,14 @@
 	</div>
 	<div class="wrap">
 		<header class="site-header">
-		<h1><a href="http://www.theonion.com/" title="Home - The Onion" class="bgcontain" style="background:url('onion-full.png');">
+		<h1><a href="http://www.theon1on.com/" title="Home - The Onion" class="bgcontain" style="background:url('onion-full.png');">
 		</a></h1>
 		<div id="meta-strip" class="inner-wrap">
 			<div id="weather">
-				<div class="image bgcontain" style="background-image: url('http://www.theonion.com/static/onion/img/icons/weather/sun_2x.png');">
+				<div class="image bgcontain" style="background-image: url('/static/onion/img/icons/weather/sun_2x.png');">
 					<div class="temp">
 						42<sup>°</sup>
 					</div>
-					<!--[if lt IE 9]><img src="http://www.theonion.com/static/onion/img/icons/weather/sun_1x.png" alt="Partly cloudy" /><![endif]-->
 				</div>
 				<div class="forecast">
 					It's not funny, cause it's true.
@@ -181,10 +180,9 @@
 				</ul>
 			</div>
 		</div>
-		<a class="expansion-toggle"><img src="http://www.theonion.com/static/onion/img/mobile_navbtn.png" alt="Show/Hide Navigation"></a><nav class="main-nav" data-ct_section_name="nav">
+		<a class="expansion-toggle"><img src="/static/onion/img/mobile_navbtn.png" alt="Show/Hide Navigation"></a><nav class="main-nav" data-ct_section_name="nav">
 		<div class="navigation">
 			<ul class="links">
-				<!-- <li class="video"><a href="http://www.theonion.com/articles/latest/video/">Video</a></li> -->
 				<li class="video" style=""><a href="http://nyan.cat/">Video</a></li>
 				<li class="politics" style=""><a href="http://www.mittromney.com/">Politics</a></li>
 				<li class="sports" style=""><a href="http://na.leagueoflegends.com/">Sports</a></li>
@@ -199,31 +197,25 @@
 			</ul>
 		</div>
 		<div class="search">
-			<form action="http://www.theonion.com/search/">
-				<button type="submit" value=""><i class="icon-large icon-search"></i></button><input type="text" name="q" value="Search" onclick="this.value=''; return false;" placeholder="Search">
-			</form>
 		</div>
 		</nav></header>
 		<div class="expansion">
 			<div class="search">
 				<button class="search-back">Back</button>
 				<div class="search-field">
-					<form id="mobilesearch" action="http://www.theonion.com/search/">
-						<input type="text" class="" name="q" value="Search" onclick="this.value=''; return false;" placeholder="Search"><a href="#" onclick="$('#mobilesearch').submit()" class="icon-search icon-large"></a>
-					</form>
 				</div>
 				<div class="results">
 				</div>
 			</div>
 			<div class="nav con">
 				<ul>
-					<li class="video"><a href="http://www.theonion.com/articles/latest/video/">Video <i class="icon-chevron-right"></i></a></li>
-					<li class="politics"><a href="http://www.theonion.com/section/politics/">Politics <i class="icon-chevron-right"></i></a></li>
-					<li class="sports"><a href="http://www.theonion.com/section/sports/">Sports <i class="icon-chevron-right"></i></a></li>
-					<li class="business"><a href="http://www.theonion.com/section/business/">Business <i class="icon-chevron-right"></i></a></li>
-					<li class="sci-tech"><a href="http://www.theonion.com/section/science-technology/">Science/Tech <i class="icon-chevron-right"></i></a></li>
-					<li class="entertainment"><a href="http://www.theonion.com/section/entertainment/">Entertainment <i class="icon-chevron-right"></i></a></li>
-					<li class="breaking"><a href="http://www.theonion.com/breaking/">Breaking <i class="icon-chevron-right"></i></a></li>
+					<li class="video"><a href="http://nyan.cat/">Video <i class="icon-chevron-right"></i></a></li>
+					<li class="politics"><a href="http://www.mittromney.com/">Politics <i class="icon-chevron-right"></i></a></li>
+					<li class="sports"><a href="http://na.leagueoflegends.com/">Sports <i class="icon-chevron-right"></i></a></li>
+					<li class="business"><a href="http://www.youtube.com/watch?v=AqZcYPEszN8">Business <i class="icon-chevron-right"></i></a></li>
+					<li class="sci-tech"><a href="http://www.icr.org/">Science/Tech <i class="icon-chevron-right"></i></a></li>
+					<li class="entertainment"><a href="http://answers.yahoo.com/">Entertainment <i class="icon-chevron-right"></i></a></li>
+					<li class="breaking"><a href="http://foxnews.com/">Breaking <i class="icon-chevron-right"></i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -350,7 +342,7 @@
 						<div data-layout="american-voices">
 							<?php $item = array_shift($items); ?>
 							<section data-contentlist="american-voices">
-							<h4 data-ct_section_name=":title"><a href="http://www.theonion.com/features/american-voices/">American Voices</a></h4>
+							<h4 data-ct_section_name=":title"><a href="https://twitter.com/justinbieber">American Voices</a></h4>
 							<article data-article-id="31364" data-ct_section_name=":1">
 							<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 							<div class="picture" data-ct_section_name=":image">
