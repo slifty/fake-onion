@@ -59,21 +59,22 @@
 		
 		$client = new Google_Client();
 		$client->setApplicationName('Not The Onion');
-		//$client->setDeveloperKey('AIzaSyAlZ6Rt-PAmZY-1RFFki6XU1MMChGAt9mY');
-		$client->setDeveloperKey('AIzaSyB8aIN6bkHdoAt-2JGb5HRavVKR2NNw-fg');
+		$client->setDeveloperKey('AIzaSyAlZ6Rt-PAmZY-1RFFki6XU1MMChGAt9mY');
+		//$client->setDeveloperKey('AIzaSyB8aIN6bkHdoAt-2JGb5HRavVKR2NNw-fg');
 		try {
 			if(!$GOOGLE_API_OVERUSE) {
 				$search = new Google_CustomsearchService($client);
 				$results = $search->cse->listCse($title, array(
-					'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
-					//'cx' => '000165549053786166966:ql3eaq3lk9w',
+					//'cx' => '003354642559472057163:xtnlqsrtqw8', // The custom search engine ID to scope this search query.
+					'cx' => '000165549053786166966:ql3eaq3lk9w',
 					'searchType' => 'image'
 				));
 
 				$image_url = $results["items"][0]["link"];
 
-				$img = 'cache/'.basename($image_url);
+				$img = 'cache/'.preg_replace("/[^A-Za-z0-9]/", "",array_shift(explode('?', basename($image_url))));
 				file_put_contents($img, file_get_contents($image_url));
+
 				$image_url = $img;
 				$image_cache[$title] = $image_url;
 				$f = fopen($image_cache_location,'w');
@@ -81,6 +82,8 @@
 				fclose($f);
 			}
 		} catch(Exception $e) {
+			print_r($e->getMessage());
+			exit();
 			$GOOGLE_API_OVERUSE = true;
 		}
 
