@@ -184,12 +184,12 @@
 		<div class="navigation">
 			<ul class="links">
 				<!-- <li class="video"><a href="http://www.theonion.com/articles/latest/video/">Video</a></li> -->
-				<li class="video" style=""><a href="http://www.theonion.com/articles/latest/video/">Video</a></li>
-				<li class="politics" style=""><a href="http://www.theonion.com/section/politics/">Politics</a></li>
-				<li class="sports" style=""><a href="http://www.theonion.com/section/sports/">Sports</a></li>
-				<li class="business" style=""><a href="http://www.theonion.com/section/business/">Business</a></li>
+				<li class="video" style=""><a href="http://nyan.cat/">Video</a></li>
+				<li class="politics" style=""><a href="http://www.mittromney.com/">Politics</a></li>
+				<li class="sports" style=""><a href="http://na.leagueoflegends.com/">Sports</a></li>
+				<li class="business" style=""><a href="http://www.youtube.com/watch?v=AqZcYPEszN8">Business</a></li>
 				<li class="science-technology" style=""><a href="http://www.icr.org/">Science/Tech</a></li>
-				<li class="entertainment" style=""><a href="http://www.theonion.com/section/entertainment/">Entertainment</a></li>
+				<li class="entertainment" style=""><a href="http://answers.yahoo.com/">Entertainment</a></li>
 				<li class="breaking" style=""><a href="http://literallyunbelievable.org/">Breaking</a></li>
 				<li class="more" style="display: none;"><a href="#" onclick="return false">More <i class="icon-chevron-down"></i></a>
 				<ul class="more-links" style="display: none;">
