@@ -4,7 +4,7 @@
 	require_once 'google-api-php-client/src/contrib/Google_CustomsearchService.php';
 
 	$feed = new SimplePie();
-	$feed->set_feed_url("http://www.reddit.com/r/nottheonion/top/.rss?sort=top&t=day");
+	$feed->set_feed_url("http://www.reddit.com/r/nottheonion/top/.rss?sort=top&t=week");
 	$feed->set_cache_duration(60);
 	$feed->init();
 	$feed->handle_content_type();
