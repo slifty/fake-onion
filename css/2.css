@@ -96,9 +96,9 @@
 .icon-twitter:before { content: '\f309'; } /* '' */
 .icon-facebook:before { content: '\f30e'; } /* '' */
 .icon-google-plus:before { content: '\f30f'; } /* '' */
-.icon-globe:before { content: '\1f30e'; } /* '\1f30e' */
-.icon-facetime-video:before { content: '\1f3a5'; } /* '\1f3a5' */
-.icon-camera:before { content: '\1f4f7'; } /* '\1f4f7' */
+.icon-globe:before { content: '🌎'; } /* '\1f30e' */
+.icon-facetime-video:before { content: '🎥'; } /* '\1f3a5' */
+.icon-camera:before { content: '📷'; } /* '\1f4f7' */
 .icon-volume-up:before { content: '🔊'; } /* '\1f50a' */
 .icon-search:before { content: '🔍'; } /* '\1f50d' */
 .icon-time:before { content: '🕔'; } /* '\1f554' */
