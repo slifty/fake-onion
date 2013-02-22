@@ -88,7 +88,7 @@
 		global $tweet_cache;
 		global $tweet_cache_location;
 		$time = time();
-		if(array_key_exists("time", $tweet_cache) && $tweet_cache > $time - 900) // 15 minute cache
+		if(array_key_exists("time", $tweet_cache) && $tweet_cache["time"] > $time - 900) // 15 minute cache
 			return $tweet_cache["tweet"];
 
 		$url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=justinbieber&count=1';
