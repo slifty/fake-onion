@@ -4,7 +4,7 @@
 	require_once 'google-api-php-client/src/contrib/Google_CustomsearchService.php';
 
 	$feed = new SimplePie();
-	$feed->set_feed_url("http://www.reddit.com/r/nottheonion/top/.rss?sort=top&t=week");
+	$feed->set_feed_url("http://www.reddit.com/r/nottheonion/top/.rss?sort=top&t=day");
 	$feed->set_cache_duration(60);
 	$feed->init();
 	$feed->handle_content_type();
@@ -72,6 +72,9 @@
 
 				$image_url = $results["items"][0]["link"];
 
+				$img = 'cache/'.basename($image_url);
+				file_put_contents($img, file_get_contents($image_url));
+				$image_url = $img;
 				$image_cache[$title] = $image_url;
 				$f = fopen($image_cache_location,'w');
 				fwrite($f, json_encode($image_cache));
