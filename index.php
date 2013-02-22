@@ -352,7 +352,7 @@
 							<article data-article-id="31364" data-ct_section_name=":1">
 							<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 							<div class="picture" data-ct_section_name=":image">
-								<a href="https://twitter.com/justinbieber"><img class="lazy-loaded" src="http://s6.favim.com/orig/61/justin-bieber-justin-bieber-photography-justin-bieber-images-justin-bieber-photos-justin-bieber-pictures-Favim.com-613705.jpg"></a>
+								<a href="https://twitter.com/justinbieber"><img class="lazy-loaded" src="/static/biebs.jpg"></a>
 							</div>
 							<div class="text">
 								“<?php echo(get_tweet()); ?>”
