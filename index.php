@@ -412,7 +412,7 @@
 			<section class="col-2" data-ct_section_name=":1">
 			<ul data-ct_section_name=":list">
 				<li data-ct_section_name=":1">
-					<h2>Content on this page has been lovingly curated by the "Not the Onion" subreddit.  <a href="http://www.reddit.com/r/nottheonion">Check out their community.</a></h2>
+					<h2>Content on this page is being lovingly curated by the "Not the Onion" subreddit.  <a href="http://www.reddit.com/r/nottheonion">Check out their community.</a></h2>
 				</li>
 			</ul>
 			</section>
