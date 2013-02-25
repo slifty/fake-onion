@@ -164,7 +164,7 @@
 	</div>
 	<div class="wrap">
 		<header class="site-header">
-		<h1><a href="http://www.theon1on.com/" title="Home - The Onion" class="bgcontain" style="background:url('onion-full.png');">
+		<h1><a href="http://www.theon1on.com/" title="Home - The Onion" class="bgcontain" style="background:url('ononeon.png');">
 		</a></h1>
 		<div id="meta-strip" class="inner-wrap">
 			<div id="weather">
@@ -342,14 +342,14 @@
 					</div>
 					</aside>
 				</div>
-				<aside class="sidebar" data-ct_section_name="sidebar_top">
-				<div data-ct_section_name=":3">
-					<div data-layout-group="a3">
-						<div data-layout="american-voices">
+				<aside class="sidebar">
+				<div>
+					<div>
+						<div>
 							<?php $item = array_shift($items); ?>
-							<section data-contentlist="american-voices">
-							<h4 data-ct_section_name=":title"><a href="https://twitter.com/justinbieber">American Voices</a></h4>
-							<article data-article-id="31364" data-ct_section_name=":1">
+							<section>
+							<h4><a href="https://twitter.com/justinbieber">American Voices</a></h4>
+							<article>
 							<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
 							<div class="picture" data-ct_section_name=":image">
 								<a href="https://twitter.com/justinbieber"><img class="lazy-loaded" src="/static/biebs.jpg"></a>
@@ -358,7 +358,9 @@
 								“<?php echo(get_tweet()); ?>”
 							</div>
 							</article>
-							<ul class="related" data-contentlist="american-voices">
+							<ul class="related">
+								<?php $item = array_shift($items); ?>
+								<li><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></li>
 								<?php $item = array_shift($items); ?>
 								<li><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></li>
 								<?php $item = array_shift($items); ?>
@@ -371,7 +373,7 @@
 					</div>
 				</div>
 				<div>
-					<div data-layout-group="a3">
+					<div>
 								<?php $item = array_shift($items); ?>
 								<div class="picture">
 									<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
@@ -382,47 +384,52 @@
 
 					</div>
 				</div>
-				<div data-ct_section_name=":5">
-					<div data-layout-group="a5">
-						<div data-layout="null">
-							<!-- data goes here -->
-						</div>
+				<div>
+					<div>
+								<?php $item = array_shift($items); ?>
+								<div class="picture">
+									<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
+								</div>
+								<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
+								<div class="meta">
+								</div>
+
 					</div>
 				</div>
 				</aside></section>
 			</div>
 		</div>
 	</div>
-	<footer class="site-footer" data-ct_section_name="footer">
+	<footer class="site-footer">
 	<div class="wrap">
 		<div>
-			<section class="col-1" data-ct_section_name=":1">
-			<ul data-ct_section_name=":list">
-				<li data-ct_section_name=":1">
+			<section class="col-1">
+			<ul>
+				<li>
 				<h2>It's not The Onion.</h2>
 				</li>
-				<li data-ct_section_name=":2">
+				<li>
 				<h2>These are all completely real.</h2>
 				</li>
-				<li data-ct_section_name=":3">
+				<li>
 				<h2>Depressing, ain't it.</h2>
 				</li>
 			</ul>
 			</section>
-			<section class="col-2" data-ct_section_name=":1">
+			<section class="col-2">
 			<ul data-ct_section_name=":list">
 				<li data-ct_section_name=":1">
 					<h2>Content on this page is being lovingly curated by the "Not the Onion" subreddit.  <a href="http://www.reddit.com/r/nottheonion">Check out their community.</a></h2>
 				</li>
 			</ul>
 			</section>
-			<section class="col-3" data-ct_section_name=":1">
+			<section class="col-3">
 			</section>
 		</div>
-		<section class="col-4" data-ct_section_name=":4">
+		<section class="col-4">
 			<p>This site is quick hack by <a href="http://www.slifty.com">Dan Schultz</a> and <a href="http://mattstempeck.com">Matt Stempeck</a>.</p>
 		</section>
-		<section class="col-5" data-ct_section_name=":5">
+		<section class="col-5">
 		<p>
 			The Onion has nothing to do with this site, we don't represent them.  In fact, we love them.  If you don't love us back, please get in touch: <a href="http://www.twitter.com/slifty">@slifty</a> and <a href="http://www.twitter.com/mstem">@mstem</a>.
 		</p>
