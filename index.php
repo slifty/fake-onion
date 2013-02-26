@@ -372,7 +372,7 @@
 				</div>
 				<div>
 					<div>
-						<h4>A Word from Our Sponsors</h4>
+						<h4>A "Word" from Our "Sponsors"</h4>
 						<div class="picture">
 							<a href="http://www.newsjack.in"><img src="/static/newsjack/newsjack.jpg"></a>
 						</div>
