@@ -372,14 +372,22 @@
 				</div>
 				<div>
 					<div>
-								<?php $item = array_shift($items); ?>
-								<div class="picture">
-									<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
-								</div>
-								<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
-								<div class="meta">
-								</div>
-
+						<h4>A Word from Our Sponsors</h4>
+						<div class="picture">
+							<a href="http://www.newsjack.in"><img src="/static/newsjack/newsjack.jpg"></a>
+						</div>
+					</div>
+				</div>
+				<div>
+					<h4>Old News</h4>
+					<div>
+						<?php $item = array_shift($items); ?>
+						<div class="picture">
+							<a href="<?php echo(get_url($item)); ?>"><img src="<?php echo(get_image($item));?>" class="lazy-loaded" width="350" height="196" alt="" title=""><i class="icon-play-circle"></i></a>
+						</div>
+						<h1><a class="title" href="<?php echo(get_url($item)); ?>"><?php echo($item->get_title()); ?></a></h1>
+						<div class="meta">
+						</div>
 					</div>
 				</div>
 				</aside></section>
