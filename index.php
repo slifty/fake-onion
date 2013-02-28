@@ -199,7 +199,7 @@
 		<a class="expansion-toggle"><img src="/static/onion/img/mobile_navbtn.png" alt="Show/Hide Navigation"></a><nav class="main-nav" data-ct_section_name="nav">
 		<div class="navigation">
 			<ul class="links">
-				<li class="video" style=""><a href="http://nyan.cat/">Video</a></li>
+				<li class="video" style=""><a href="http://zeega.com/channel/audiogif#f/43586">Video</a></li>
 				<li class="politics" style=""><a href="http://www.verminsupreme.com/">Politics</a></li>
 				<li class="sports" style=""><a href="http://na.leagueoflegends.com/">Sports</a></li>
 				<li class="business" style=""><a href="http://www.youtube.com/watch?v=AqZcYPEszN8">Business</a></li>
