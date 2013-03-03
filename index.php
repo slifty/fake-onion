@@ -39,11 +39,12 @@
 
 	function get_url($item) {
 		$description = $item->get_description();
-		$userpos = strpos($description, '<a href="');
-		$startpos = strpos($description, '<a href="', $userpos + 9);
-		$endpos = strpos($description, '">', $startpos);
-		$url = substr($description, $startpos + 9, $endpos - $startpos - 9);
-		return $url;
+		preg_match_all('/(<a href=")([^"]*)/', $description, $parts);
+		foreach($parts[2] as $url) {
+			if(strpos($url, "http://www.reddit.com") === false)
+				return $url;
+		}
+		return "";
 	}
 
 	function get_title($item) {
