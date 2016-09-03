@@ -37,6 +37,9 @@
 	session_start();
 	
 	function get_url($item) {
+		if(!$item)
+			return "";
+
 		// NOTE: I had to do a DISGUSTING hack to SimplePie to get this to work.  Like, really terrible.  Somewhere around line 9000 of the library
 		$description = $item->get_description();
 		preg_match_all('/(")(https?\:\/\/[^"]*)/', $description, $parts);
@@ -49,6 +52,8 @@
 	}
 
 	function get_title($item) {
+		if(!$item)
+			return "";
 		$title = $item->get_title();
 		$title = preg_replace('/”/', '"', $title);
 		$title = preg_replace('/‘/', "'", $title);
@@ -59,6 +64,8 @@
 	}
 
 	function get_image($item) {
+		if(!$item)
+			return "";
 		global $image_cache;
 		global $image_cache_location;
 		global $GOOGLE_API_OVERUSE;
