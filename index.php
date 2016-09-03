@@ -2,9 +2,8 @@
 	require_once('php/autoloader.php');
 	require_once 'google-api-php-client/src/Google_Client.php';
 	require_once 'google-api-php-client/src/contrib/Google_CustomsearchService.php';
-
 	$feed = new SimplePie();
-	$feed->set_feed_url("http://www.reddit.com/r/nottheonion/top/.rss?limit=25&sort=top&t=week");
+	$feed->set_feed_url("https://www.reddit.com/r/nottheonion/top/.rss?limit=25&sort=top&t=week");
 	$feed->set_cache_duration(60);
 	$feed->init();
 	$feed->handle_content_type();
@@ -36,12 +35,14 @@
 	}
 
 	session_start();
-
+	
 	function get_url($item) {
+		// NOTE: I had to do a DISGUSTING hack to SimplePie to get this to work.  Like, really terrible.  Somewhere around line 9000 of the library
 		$description = $item->get_description();
-		preg_match_all('/(<a href=")([^"]*)/', $description, $parts);
+		preg_match_all('/(")(https?\:\/\/[^"]*)/', $description, $parts);
 		foreach($parts[2] as $url) {
-			if(strpos($url, "http://www.reddit.com") === false)
+			if(strpos($url, "reddit.com") === false
+			&& strpos($url, "redditmedia.com") === false)
 				return $url;
 		}
 		return "";
