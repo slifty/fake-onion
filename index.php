@@ -1,5 +1,5 @@
 <?php
-	require_once('php/autoloader.php');
+	require_once('vendor/autoload.php');
 	require_once 'google-api-php-client/src/Google_Client.php';
 	require_once 'google-api-php-client/src/contrib/Google_CustomsearchService.php';
 	$feed = new SimplePie();
